@@ -2,10 +2,10 @@ var connection = require("./connection.js");
 
 
 var orm = {
-    selectAll: function(where, value) {
+    all: function(table, where, value) {
       return new Promise(function(resolve, reject) {
-            var queryString = "SELECT * FROM Burgers WHERE ?? = ?";
-                connection.query(queryString, [where, value], function(err, result) {
+            var queryString = `SELECT * FROM ?? ${where !== undefined ? 'WHERE ?? = ?' : ''}`;
+                connection.query(queryString, [table, where, value], function(err, result) {
                 if (err) {
                     return reject(err)
                 }
@@ -13,10 +13,10 @@ var orm = {
             })
         })
     },
-    insertOne: function(burger_name, devoured=false) {
+    insert: function(table, cols, vals) {
       return new Promise(function(resolve, reject) {
-        var queryString = "INSERT INTO Burgers (burger_name, devoured) VALUES (?,?);";
-        connection.query(queryString, [burger_name, devoured], function(err, result) {
+        var queryString = "INSERT INTO ?? (??) VALUES (??);";
+        connection.query(queryString, [cols.join(','), vals.join(',')], function(err, result) {
           if (err) {
             return reject(err)
           }
@@ -24,10 +24,10 @@ var orm = {
         })
       })
     },
-    updateOne: function(id, burger_name, devoured=false) {
+    update: function(table, id, key, value) {
         return new Promise(function(resolve, reject) {
-            var queryString = "UPDATE burgers SET burger_name = ?, devoured = ? WHERE id=?;";
-            connection.query(queryString, [burger_name, devoured, id], function(err, result) {
+            var queryString = "UPDATE ?? SET ?? = ?, ?? = ? WHERE id=?;";
+            connection.query(queryString, [table, key, value, id], function(err, result) {
                 if (err) {
                     return reject(err)
                 }
