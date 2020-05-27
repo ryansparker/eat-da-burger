@@ -4,6 +4,7 @@
   "description": "A burger logger with MySQL, Node, Express, Handlebars and a homemade ORM.",
   "main": "server.js",
   "scripts": {
+    "watch": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
@@ -23,5 +24,8 @@
     "express-handlebars": "^4.0.4",
     "handlebars": "^4.7.6",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

@@ -3,6 +3,7 @@ var exphbs = require("express-handlebars");
 var mysql = require("mysql");
 var dotenv = require("dotenv").config();
 
+var router = require("./controllers/burgers_controllers");
 var app = express();
 
 // Set the port of our application
@@ -11,6 +12,7 @@ var PORT = process.env.PORT || 8080;
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+app.use(router);
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -20,7 +22,6 @@ var connection = mysql.createConnection({
     database: process.env.DB_NAME
   });
   
-  console.log(process.env.DB_PASSWORD);
   // Initiate MySQL Connection.
   connection.connect(function(err) {
     if (err) {

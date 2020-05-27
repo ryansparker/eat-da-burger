@@ -1,6 +1,5 @@
 var connection = require("./connection.js");
 
-
 var orm = {
     all: function(table, where, value) {
       return new Promise(function(resolve, reject) {
