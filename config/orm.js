@@ -1,5 +1,8 @@
 var connection = require("./connection.js");
 
+const serialize = obj => Object.entries(obj).map(([k, v]) =>
+  `\`${k}\`=${typeof v === 'boolean' ? v : `'${v}'`}`).join(',')
+
 var orm = {
     all: function(table, where, value) {
       return new Promise(function(resolve, reject) {
@@ -12,21 +15,27 @@ var orm = {
             })
         })
     },
-    insert: function(table, cols, vals) {
+    insert: function(table, object) {
+      console.log(object)
+      const sets = serialize(object)
+      console.log(sets)
+
       return new Promise(function(resolve, reject) {
-        var queryString = "INSERT INTO ?? (??) VALUES (??);";
-        connection.query(queryString, [cols.join(','), vals.join(',')], function(err, result) {
+        const queryString = `INSERT ?? SET ${sets};`;
+        connection.query(queryString, [table], function(err, result) {
           if (err) {
-            return reject(err)
+              return reject(err)
           }
           resolve(result);
-        })
+      })
       })
     },
-    update: function(table, id, key, value) {
+    update: function(table, id, object) {
+        const sets = serialize(object)
+
         return new Promise(function(resolve, reject) {
-            var queryString = "UPDATE ?? SET ?? = ?, ?? = ? WHERE id=?;";
-            connection.query(queryString, [table, key, value, id], function(err, result) {
+          const queryString = `UPDATE ?? SET ${sets} WHERE id=?;`;
+            connection.query(queryString, [table, id], function(err, result) {
                 if (err) {
                     return reject(err)
                 }

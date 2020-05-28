@@ -1,3 +1,20 @@
-.body {
-    align-content: center;
+body {
+    justify-content: center;
+    text-align: center;
+    background: rgb(236, 220, 179);
+}
+
+.yum {
+    font-size: 32px;
+}
+
+h1 {
+    font-size: 80px;
+    margin-top: 0px;
+}
+
+h3 {
+    font-size: 200px;
+    margin: 0px;
+    padding: 0px;
 }
