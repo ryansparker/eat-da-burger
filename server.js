@@ -3,6 +3,8 @@ var exphbs = require("express-handlebars");
 var mysql = require("mysql");
 var dotenv = require("dotenv").config();
 
+const db = require('./config/connection')
+
 var app = express();
 
 // Set the port of our application
@@ -18,34 +20,6 @@ app.use(express.json())
 
 var router = require("./controllers/burgers_controllers");
 app.use(router);
-
-var connection = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-  });
-  // JAWSDB
-  if(process.env.JAWSDB_URL) {
-    connection =mysql.createConnection(process.env.JAWSDB_URL);
-  }else {
-    connection = mysql.createConnection({
-host: 'localhost',
-user: 'root',
-password: 'hacktheplanet',
-database: 'todoagain_db'
-    });
-  };
-
-  // Initiate MySQL Connection.
-  connection.connect(function(err) {
-    if (err) {
-      console.error("error connecting: " + err.stack);
-      return;
-    }
-    console.log("connected as id " + connection.threadId);
-  });
   
 
   // Start our server so that it can begin listening to client requests.
