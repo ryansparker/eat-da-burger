@@ -3,8 +3,9 @@
 <h3> 🍔</h3>
 <h1>Eat Da Burger!</h1>
 
+<div class= "container">
+<div class = "list1">
 <h2>Burgers</h2>
-
 <ul>
   {{#each burgers}}
     {{#unless devoured}}
@@ -12,9 +13,9 @@
     {{/unless}}
   {{/each}}
 </ul>
-
-<h2>Devoured!</h2>
-
+</div>
+<div class = "list2">
+<h2>Devoured</h2>
 <ul>
   {{#each burgers}}
     {{#if devoured}}
@@ -22,7 +23,8 @@
     {{/if}}
   {{/each}}
 </ul>
-
+</div>
+</div>
 <h2>Enter the burger you want to eat</h2>
 <form class="create-form">
 
@@ -30,6 +32,6 @@
     <label for="ca">Burger Name:</label>
     <input type="text" id="ca" name="name">
   </div>
-
-  <input type="submit">Submit</button>
+<br>
+  <input type="submit"></button>
 </form>
